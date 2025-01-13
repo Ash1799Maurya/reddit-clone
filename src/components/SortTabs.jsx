@@ -1,23 +1,23 @@
-import React from 'react'
+import React from 'react';
 
-function SortTabs({sortBy, setSortBy})  {
-    const sortOptions = ['Hot', 'New', 'Controversial', 'Rising', 'Top']
+export default function SortTabs({ currentSort, onSortChange }) {
+  const tabs = ['hot', 'new', 'controversial', 'rising', 'top'];
+  
   return (
-    <div className='flex gap-4 border-b'>
-        {sortOptions.map((sort) => (
-            <button 
-            key={sort}
-            onClick={() => setSortBy(sort.toLowerCase())}
-            className={`px-4 py-2 text-sm ${
-                sortBy === sort.toLowerCase()
-                ? 'border-b-2 border-orange-500 text-orange-500'
-                : 'text-gray-600'
-            }`}>
-                {sort}
-            </button>
-        ))}
+    <div className="flex space-x-1 mb-4">
+      {tabs.map((tab) => (
+        <button
+          key={tab}
+          onClick={() => onSortChange(tab)}
+          className={`px-4 py-2 text-sm rounded-full capitalize ${
+            currentSort === tab
+              ? 'bg-gray-200 text-gray-800'
+              : 'text-gray-500 hover:bg-gray-100'
+          }`}
+        >
+          {tab}
+        </button>
+      ))}
     </div>
-  )
+  );
 }
-
-export default SortTabs
