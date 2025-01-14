@@ -14,7 +14,7 @@ export default function Header({ onSearch }) {
     <header className="bg-white px-4 py-2 flex items-center justify-between border-b">
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-2">
-          <img src="/reddit-logo.svg" alt="Reddit" className="w-8 h-8" />
+          <img src="/reddit.png" alt="Reddit" className="w-8 h-8" />
           <span className="text-xl font-semibold">reddit</span>
         </div>
         
