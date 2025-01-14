@@ -5,7 +5,7 @@ export default function Pagination({ after, before, onNext, onPrevious }) {
     <div className="flex justify-center space-x-4 mt-6 mb-8">
       <button
         onClick={onPrevious}
-        disabled={!before} 
+        disabled={!before}
         className={`px-4 py-2 rounded-full text-sm font-medium ${
           before
             ? 'bg-orange-500 text-white hover:bg-orange-600'
@@ -16,7 +16,7 @@ export default function Pagination({ after, before, onNext, onPrevious }) {
       </button>
       <button
         onClick={onNext}
-        disabled={!after}  
+        disabled={!after}
         className={`px-4 py-2 rounded-full text-sm font-medium ${
           after
             ? 'bg-orange-500 text-white hover:bg-orange-600'

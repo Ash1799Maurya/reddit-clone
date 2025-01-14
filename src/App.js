@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
-import Pagination from './components/Pagination';
 import Sidebar from './components/Sidebar';
-import SortTabs from './components/SortTabs';
 import PostList from './components/PostList';
+import SortTabs from './components/SortTabs';
+import Pagination from './components/Pagination';
 
 export default function App() {
   const [posts, setPosts] = useState([]);
@@ -14,7 +14,7 @@ export default function App() {
   const [currentQuery, setCurrentQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
 
-  const fetchPosts = useCallback(async (params = {}) => {
+  const fetchPosts = async (params = {}) => {
     setLoading(true);
     try {
       let url = '';
@@ -54,13 +54,13 @@ export default function App() {
       console.error('Error fetching posts:', error);
     }
     setLoading(false);
-  }, [sort]);
+  };
 
   useEffect(() => {
     if (!isSearching) {
       fetchPosts();
     }
-  }, [sort, isSearching, fetchPosts]);
+  }, [sort, isSearching]);
 
   const handleSearch = (query) => {
     if (query.trim()) {
@@ -70,15 +70,7 @@ export default function App() {
     } else {
       setIsSearching(false);
       setCurrentQuery('');
-      fetchPosts();
     }
-  };
-
-  // Debounced search function
-  const debounceSearch = debounce((query) => handleSearch(query), 500);
-
-  const handleSearchInputChange = (e) => {
-    debounceSearch(e.target.value);
   };
 
   const handleNext = () => {
@@ -103,7 +95,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header onSearch={handleSearchInputChange} />
+      <Header onSearch={handleSearch} />
       <div className="max-w-6xl mx-auto pt-6 px-4">
         <div className="flex gap-6">
           <Sidebar />
@@ -147,13 +139,4 @@ export default function App() {
       </div>
     </div>
   );
-}
-
-// Debounce function to delay search calls
-function debounce(func, delay) {
-  let timeout;
-  return function (...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), delay);
-  };
 }

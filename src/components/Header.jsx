@@ -1,29 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { Search, Home, TrendingUp, Menu, Bell, Mail } from 'lucide-react';
-import redditLogo from '../assets/images/reddit.png';  
 
 export default function Header({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e) => {
-    e.preventDefault(); // Prevent form submission default action
-    if (searchQuery.trim()) {
-      onSearch(searchQuery); // Pass the query to the parent component (App)
-    }
-  };
-
-  const handleSearchInputChange = (e) => {
-    const { value } = e?.target?.value;// Destructure to get value
-    console.log(value); // Debugging: Log the input value
-    setSearchQuery(value); // Update the state with the input value
+    e.preventDefault();
+    onSearch(searchQuery);
   };
 
   return (
     <header className="bg-white px-4 py-2 flex items-center justify-between border-b">
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-2">
-          <img src={redditLogo} alt="Reddit" className="w-8 h-8" />
+          <img src="/reddit-logo.svg" alt="Reddit" className="w-8 h-8" />
           <span className="text-xl font-semibold">reddit</span>
         </div>
         
@@ -49,7 +40,13 @@ export default function Header({ onSearch }) {
           <input
             type="text"
             value={searchQuery}
-            onChange={handleSearchInputChange} // Attach the handler here
+            onChange={(e) => {
+              if (e && e.target) {
+                setSearchQuery(e.target.value);
+              } else {
+                console.error('Event or target is undefined');
+              }
+            }}
             placeholder="Find community or post"
             className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-full border border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none text-sm"
           />
